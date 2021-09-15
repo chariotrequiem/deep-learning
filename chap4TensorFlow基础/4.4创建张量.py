@@ -101,6 +101,7 @@ Out[34]:
 array([[-2.2687864, -0.7248812],
        [ 1.2752185, 2.8625617]], dtype=float32)>
 
+创建均匀分布的张量
 通过tf.random.uniform(shape, minval=0, maxval=None, dtype=tf.float32)可以创建采样自[minval， maxval)区间的均匀分布的张量。
 例如创建采样自区间[0， 1)，shape为[2， 2]的矩阵：
 In [35]: tf.random.uniform([2,2]) # 创建采样自[0,1)均匀分布的矩阵
