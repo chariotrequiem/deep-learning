@@ -22,3 +22,18 @@ x_train = keras.preprocessing.sequence.pad_sequences(x_train, maxlen=max_review_
 x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=max_review_len, truncating='post', padding='post')
 
 print(x_train.shape, x_test.shape)  # 打印等长的句子张量形状
+
+
+print('-------------practice--------------')
+a = tf.constant([[1, 2, 3, 4, 5],
+                 [6, 7, 8, 9, 10]])
+b = tf.constant([[2, 3, 4], [8, 9, 10]])
+b = tf.pad(b, [[0, 0], [2, 0]])
+# print(b)
+c = tf.stack([a, b], axis=0)
+print(c)
+
+print('----------------------------------')
+a = tf.random.normal([2, 2, 2, 2])
+b = tf.pad(a, [[0, 0], [1, 1], [1, 1], [0, 0]])
+print(b)

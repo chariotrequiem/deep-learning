@@ -14,3 +14,12 @@ print(relu(X))
 
 x = tf.range(10)
 print(tf.clip_by_value(x, 2, 7))
+
+print('---------------------------')
+x = tf.random.uniform([20], minval=-20, maxval=20, dtype=tf.int32)
+print(x)
+a = tf.maximum(x, 0)
+b = tf.minimum(a, 10)
+print(b)
+c = tf.clip_by_value(x, 0, 10)
+print(c)

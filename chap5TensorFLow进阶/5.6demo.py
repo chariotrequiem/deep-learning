@@ -1,7 +1,10 @@
 # 当前版本 ： python3.7.11
 # 开发时间 ： 2021/9/15 17:03
 import tensorflow as tf
+import os
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+print(tf.__version__)
 a = tf.range(8)
 a = tf.reshape(a, [4, 2])
 print(a)
@@ -79,8 +82,46 @@ updates = tf.constant([
 c = tf.scatter_nd(indices, updates, [4, 4, 4])
 print(c)
 
-print('--------------------------------------')
+"""print('--------------------------------------')
 x = tf.linspace(-8, 8, 100)
 y = tf.linspace(-8, 8, 100)
 print(x)
-print(y)
+print(y)"""
+
+
+print('-----------tf.gather----------------')
+a = tf.random.uniform([4, 35, 8], minval=15, maxval=100, dtype=tf.int32)
+b = tf.gather(a, [0, 3, 8, 11, 12, 26], axis=1)
+print(b)
+
+# 收集所有学生的第3，5门成绩
+c = tf.gather(a, [4, 6], axis=2)
+print(c)
+
+# 搜集第[2,3]班级的第[3,4,6,27]号同学的科目成绩，
+d = tf.gather(a, [1, 2], axis=0)
+d = tf.gather(d, [2, 3, 5, 26], axis=1)
+print(d)
+
+# tf.gather_nd()函数
+d = tf.gather_nd(a, [[[1, 2], [1, 3], [1, 5], [1, 26]], [[2, 2], [2, 3], [2, 5], [2, 26]]])
+print(d)
+
+
+print('-------------tf.boolean_mask()函数--------------')
+x = tf.random.uniform([2, 3, 8], maxval=100, dtype=tf.int32)
+mask = [[True, True, False], [False, True, True]]
+a = tf.boolean_mask(x, mask)
+b = tf.gather_nd(x, [[0, 0], [0, 1], [1, 1], [1, 2]])
+print(a)
+print(b)
+
+
+print('-----------------tf.where()函数------------------')
+x = tf.random.normal([4, 4])
+print(x)
+mask = x > 0
+indices = tf.where(mask)
+print(indices)
+c = tf.gather_nd(x, indices)
+print(c)
