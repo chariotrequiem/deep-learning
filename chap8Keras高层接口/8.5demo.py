@@ -1,16 +1,33 @@
 # 当前版本 ： python3.7.11
-# 开发时间 ： 2021/9/21 17:44
-from tensorflow.keras import layers
+# 开发时间 ： 2021/9/22 9:39
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers, Sequential
+
+# 加载ImageNet预训练网络模型，并去掉最后一层
+resnet = keras.applications.ResNet50(weights='imagenet', include_top=False)
+resnet.summary()
+# 测试网络的输出
+x = tf.random.normal([4, 224, 224, 3])
+out = resnet(x)
+print(out.shape)
 
 
-class MyDense(layers.Layer):
-    # 自定义网络层
-    def __init__(self, inp_dim, outp_dim):
-        super().__init__()
-        # 创建权值张量并添加到类管理列表中，设置为需要优化
-        self.kernel = self.add_variable('w', [inp_dim, outp_dim], trainable=True)
+# 新建池化层
+global_average_layer = layers.GlobalAveragePooling2D()
+# 利用上一层的输出作为本层的输入，测试其输出
+x = tf.random.normal([4, 7, 7, 2048])
+# 池化层降维，形状由[4, 7, 7, 2048]变为[4, 1, 1, 2048],删减维度后变为[4, 2048]
+out = global_average_layer(x)
+print(out.shape)
 
+# 新建一个全连接层，设置输出节点为100
+# 新建全连接层
+fc = layers.Dense(100)
+# 利用上一层的输出[4， 2048]作为样本层的输入，测试其输出
+x = tf.random.normal([4, 2048])
+out = fc(x)  # 输出层的输出为样本属于100类别的概率分布
+print(out.shpae)
 
-net = MyDense(4, 3)  # 创建输入为4，输出为3结点的自定义层
-# 查看自定义层的参数列表(类的全部参数列表， 类的待优化参数列表)
-print(net.variables, net.trainable_variables)
+mynet = Sequential([resnet, global_average_layer, fc])
+mynet.summary()

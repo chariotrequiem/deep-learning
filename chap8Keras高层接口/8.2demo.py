@@ -82,3 +82,5 @@ for x, y in test_db:  # 遍历测试集
     acc_meter.update_state(y_true=y, y_pred=pred)  # 更新准确率统计
 # 打印准确率
 print("Test Accuracy:%f" % acc_meter.result())
+
+
