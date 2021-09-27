@@ -52,7 +52,7 @@ def main():
     optimizer = optimizers.Adam(lr=1e-4)  # 构建优化器, 学习率为1e-4
 
     accs = []
-    for epoch in range(30):  # 训练epoch
+    for epoch in range(3):  # 训练epoch
         for step, (x, y) in enumerate(train_db):
             with tf.GradientTape() as tape:
                 # [b, 32, 32, 3] => [b, 10],前向传播

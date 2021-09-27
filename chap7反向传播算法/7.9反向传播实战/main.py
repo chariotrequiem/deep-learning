@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 import Data
 from layer import Layer
+from tensorflow import metrics
 from neuralnetwork import NeuralNetwork
 
 # 生成X，y以及训练集和测试集
@@ -48,3 +49,4 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 
 plt.show()
+
